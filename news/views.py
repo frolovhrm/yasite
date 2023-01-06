@@ -30,7 +30,8 @@ def add_news(request):
         form = NewsForm(request.POST)
         if form.is_valid():
             # print(form.cleaned_data)
-            News.objects.create(**form.cleaned_data)
+            #News.objects.create(**form.cleaned_data) // Для несвязанных форм
+            news = form.save() # Для связанных с моделью
             return redirect('home')
     else:
 
