@@ -1,6 +1,8 @@
 from django import forms
 
 from .models import Category, News
+import re
+from django.core.exceptions import ValidationError
 
 # Для несвязанный с моделью форм
 # class NewsForm(forms.Form):
@@ -21,3 +23,9 @@ class NewsForm(forms.ModelForm):
             'content': forms.Textarea(attrs={"class": "form-control", "rows": 5}),
             'category': forms.Select(attrs={"class": "form-control"}),
         }
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if re.match(r'\d', title):
+            raise ValidationError('Название не должно начинаться с цифры')
+        return title
