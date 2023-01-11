@@ -9,6 +9,7 @@ class HomeNews(ListView):
     model = News
     template_name = 'news/home_news_list.html'
     context_object_name = 'news'
+
     # extra_context = {'title': 'Главная'}
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -20,15 +21,28 @@ class HomeNews(ListView):
         return News.objects.filter(is_publishes=True)
 
 
+# def index(request):
+#     news = News.objects.all()
+#
+#     context = {'news': news,
+#                'title': 'Список новостей',
+#                }
+#     return render(request, 'news/index.html', context)
 
 
-def index(request):
-    news = News.objects.all()
+class NewsByCategory(ListView):
+    model = News
+    template_name = 'news/home_news_list.html'
+    context_object_name = 'news'
+    allow_empty = False
 
-    context = {'news': news,
-               'title': 'Список новостей',
-               }
-    return render(request, 'news/index.html', context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = Category.objects.get(pk=self.kwargs['category_id'])
+        return context
+
+    def get_queryset(self):
+        return News.objects.filter(category_id=self.kwargs['category_id'], is_publishes=True)
 
 
 def get_category(request, category_id):
@@ -48,8 +62,8 @@ def add_news(request):
         form = NewsForm(request.POST)
         if form.is_valid():
             # print(form.cleaned_data)
-            #News.objects.create(**form.cleaned_data) // Для несвязанных форм
-            news = form.save() # Для связанных с моделью
+            # News.objects.create(**form.cleaned_data) // Для несвязанных форм
+            news = form.save()  # Для связанных с моделью
             return redirect('home')
     else:
 
