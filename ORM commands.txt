@@ -1,0 +1,36 @@
+python manage.py shell
+
+>>> from news.models import News, Category
+>>> News.objects.all() - получение всех объектов из Модели
+>>> News.objects.order_by('pk') - сортировка по pk
+>>> News.objects.all().reverse() - обратный порядок сортирки всех
+>>> News.objects.get(pk=1) - вызвать запись №1, только одна запись!!!
+>>> News.objects.get(title='Новость 5')  -
+>>> news5 = _ - присвоить переменной news5 последнее полученое значение
+>>> news5 - получить значение переменной news5
+>>> news5.is_publishes - получение знаниея поля записи
+>>> news5.category - возвращает текстовое значение поля, а не номер, т.к. в моделе есть декоратор __str__
+>>> news5.category.pk - получаем его атрибут
+>>> news5.category.title - получаем его атрибут
+>>> cat4 = Category.objects.get(pk=4) - получаем объект категирия
+>>> cat4.news_set.all() - методом <имя модели>_set (в Django по умолчанию, но можно и переопределить в моделе атрибутом related_name='' получаем данные из вторичной модели
+>>> news = _ - сохраняем в переменную news
+>>> print(news[0]) - выдодим первое значение из списка
+>>> cat2 = Category.objects.get(pk=2)
+>>> news = cat2.news_set.all() - получаем все новости связанные с категорией pk2
+>>> for item in news:
+...     print(item.title, item.is_publishes) - получает поля всех записей
+...
+
+
+
+
+
+
+
+
+
+
+
+
+
