@@ -17,7 +17,7 @@ python manage.py shell
 >>> news = _ - сохраняем в переменную news
 >>> print(news[0]) - выдодим первое значение из списка
 >>> cat2 = Category.objects.get(pk=2)
->>> news = cat2.news_set.all() - получаем все новости связанные с категорией pk2
+>>> news = cat2.news_set.all() - получаем все новости связанные с категорией cat2 получений по (pk2)
 >>> for item in news:
 ...     print(item.title, item.is_publishes) - получает поля всех записей
 ...
@@ -25,6 +25,22 @@ python manage.py shell
 >>> News.objects.filter(title__contains='Новость') - выборка по образцу чувствительна к кодировке и регистру
 >>> News.objects.filter(pk__in=[9,10,11]) - выбор определенных записей
 >>> News.objects.filter(pk__in=[9,10,11], title__contains='формы') - комбинированый логическое И
+>>> News.objects.first() - получение первой записи из модели
+>>> News.objects.order_by('pk').first() - сортировка и получение первого по pk
+>>> News.objects.earliest('updated_at') - получение записи с самой ранней датой, для полей с датой.
+
+>>> cats = Category.objects.filter(pk__in=[1,3]) - получаем список сатегорий с номерами 1 и 3
+>>> News.objects.filter(categogy__in=cats) - получаем список новостей с категориями из списка 'cats'
+
+>>> cat1 =  Category.objects.get(pk=1) - получаем категорию с pk=1
+>>> cat1.news_set.exists() - проверяем есть ли записи в News с категорией cat1
+>>> cat1.news_set.count() - получаем количество записей в News с категирией cat1
+
+>>> news = News.objects.get(pk=8) - записываем в news запись 8
+>>> news.get_previous_by_created_at() - вызываем предидущую запись записи 8, по полю дата создания.
+>>> news.get_next_by_created_at() - или следующую
+>>> news.get_next_by_created_at(pk__gt=10, title__contains=7) - добавляем фильтры, номер больше 7, в названии есть 7
+
 
 
 
