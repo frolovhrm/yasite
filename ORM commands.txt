@@ -21,6 +21,11 @@ python manage.py shell
 >>> for item in news:
 ...     print(item.title, item.is_publishes) - получает поля всех записей
 ...
+>>> News.objects.filter(pk__gt=12) - вызов записей где pk > 12, фильтр __gt или __gte больше или равно
+>>> News.objects.filter(title__contains='Новость') - выборка по образцу чувствительна к кодировке и регистру
+>>> News.objects.filter(pk__in=[9,10,11]) - выбор определенных записей
+>>> News.objects.filter(pk__in=[9,10,11], title__contains='формы') - комбинированый логическое И
+
 
 
 
