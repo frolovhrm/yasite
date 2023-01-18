@@ -62,6 +62,27 @@ python manage.py shell
 >>> News.objects.aggregate(Avg('views')) - среднее всех
 >>> News.objects.aggregate(Count('views')) - количество всех
 
+>>> cats = Category.objects.annotate(Count('news')) - подсчет записей News для каждой категории
+>>> for item in cats:
+...     print(item.title, item.news__count) - вывод данных
+
+>>> cats = Category.objects.annotate(max_views=Max('news__views'))  - подсчет максимальных значений по каждой категории
+>>> for item in cats:
+...     print(item.title, item.max_views)  - вывод данных
+...
+
+>>> cats = Category.objects.annotate(sum_views=Sum('news__views'))  - подсчет суммы значений по каждой категории
+>>> for item in cats:
+...       print(item.title, item.sum_views)  - вывод данных
+...
+
+>>> cats = Category.objects.annotate(cnt=Count('news')).filter(cnt__gt=0) - вывод количества новостей, больше нуля
+>>> for item in cats:
+...      print(item.title, item.cnt)  - вывод данных
+...
+
+>>> News.objects.aggregate(cnt=Count('views', distinct=True)) - вывод количествва записей с уникальными значениями
+
 
 
 
