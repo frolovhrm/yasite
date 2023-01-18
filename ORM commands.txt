@@ -41,11 +41,13 @@ python manage.py shell
 >>> news.get_next_by_created_at() - или следующую
 >>> news.get_next_by_created_at(pk__gt=10, title__contains=7) - добавляем фильтры, номер больше 7, в названии есть 7
 
+>>> News.objects.filter(category__title = 'Политика') - получение всех записей по ключу первичной модели
+>>> Category.objects.filter(news__title__contains='формы') - получение всех записей вторичной модели по ключу вторичной с фильтром по содержанию
+>>> Category.objects.filter(news__title__contains='формы').distinct - тоже но только уникальные значания
 
-
-
-
-
+>>> from django.db.models import Q - клас позволяет добавлять логику '|' - или '~' - не '&' - and
+>>> News.objects.filter(Q(pk__in=[5, 6]) | Q(title__contains='2')) - фильтруем по pk= 5 и 6 у которых в заголовке есть 2
+>>> News.objects.filter(Q(pk__in=[5, 6]) | Q(title__contains='2') & ~ Q(pk__lt=4) )  - тоже но pk больше 4
 
 
 
