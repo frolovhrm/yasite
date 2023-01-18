@@ -49,6 +49,26 @@ python manage.py shell
 >>> News.objects.filter(Q(pk__in=[5, 6]) | Q(title__contains='2')) - фильтруем по pk= 5 и 6 у которых в заголовке есть 2
 >>> News.objects.filter(Q(pk__in=[5, 6]) | Q(title__contains='2') & ~ Q(pk__lt=4) )  - тоже но pk больше 4
 
+>>> from news.models import *
+>>> News.objects.all() [:3] - получаем последние три записи
+>>> News.objects.all() [10:] - все после 10-ой
+>>> News.objects.all() [3:5] - с третей по пятую
+
+>>> from django.db.models import *
+>>> News.objects.aggregate(Min('views'), Max('views')) - нахидим минимальное и максимальное значение по полю
+>>> News.objects.aggregate(min_views = Min('views'), max_views =  Max('views')) тоже с именованными ответами
+>>> News.objects.aggregate(diff = Min('views') -  Max('views')) - разница
+>>> News.objects.aggregate(Sum('views')) - сумма всех записей
+>>> News.objects.aggregate(Avg('views')) - среднее всех
+>>> News.objects.aggregate(Count('views')) - количество всех
+
+
+
+
+
+
+
+
 
 
 
