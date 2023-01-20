@@ -108,30 +108,21 @@ python manage.py shell
 ...     print(item.title, item.length) - выводим title и length
 ...
 
+>>> News.objects.raw("SELECT * FROM news_news ") - запросом вытаскиваем все записи из модели.
+<RawQuerySet: SELECT * FROM news_news > - Внимание запрос обязательно должен содержать ПЕРВИЧНЫЙ КЛЮЧ (id)!!!
+>>> news = _
+>>> for item in news:
+...     print(item.title) - выводим title, т.к. запрос данных происходит в момент печати, можно запросить поля которые не вызывались в первоначальом запросе!
 
 
+>>> News.objects.raw("SELECT * FROM news_news WHERE title='News 5'") - незащищенный метод передачи параметра. Не делать так!!!
+<RawQuerySet: SELECT * FROM news_news WHERE title='News 5'>
+>>> news = _
+>>> for item in news:
+...     print(item.title) - выводим только title = 'News 5'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+>>> News.objects.raw("SELECT * FROM news_news WHERE title= %s", ['News 5']) - Так правильно!
+<RawQuerySet: SELECT * FROM news_news WHERE title= News 5>
+>>> for item in news: le)
+...     print(item.title)
+...
