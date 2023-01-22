@@ -49,7 +49,7 @@ class NewsByCategory(ListView):
         return context
 
     def get_queryset(self):
-        return News.objects.filter(category_id=self.kwargs['category_id'], is_publishes=True).select_related('category')
+        return News.objects.filter(category_id=self.kwargs['category_id'], is_publishes=True).select_related('category') # Загрузить данные сразу для связанной модели select_related('category')
 
 
 def get_category(request, category_id):
