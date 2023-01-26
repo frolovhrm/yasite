@@ -1,0 +1,32 @@
+#header {
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px;
+  background: #c62828;
+  color: var(--header-color);
+  overflow: hidden;
+}
+
+.module h2, .module caption, .inline-group h2 {
+  margin: 0;
+  padding: 8px;
+  font-weight: 400;
+  font-size: 0.8125rem;
+  text-align: left;
+  background: #ef5350;
+  color: var(--header-link-color);
+}
+
+a:link, a:visited {
+  color: #b71c1c;
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s;
+}
+
+:root {
+  --primary: #e57373;
+
+}
