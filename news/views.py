@@ -10,7 +10,7 @@ from .utils import MyMixin
 
 
 def test(request):
-    objects = ['aaaa1', 'aaaa2', 'aaaa3', 'aaaa4', 'aaaa5', 'aaaa6', 'aaaa7', 'aaaa8']
+    objects = ['aaaa1', 'aaaa2', 'aaaa3', 'aaaa4', 'aaaa5', 'aaaa6', 'aaaa7']
     paginator = Paginator(objects, 2)
     page_num = request.GET.get('page', 1)
     page_obects = paginator.get_page(page_num)
@@ -22,6 +22,7 @@ class HomeNews(MyMixin, ListView):
     template_name = 'news/home_news_list.html'
     context_object_name = 'news'
     mixin_prop = 'hello world'
+    paginate_by = 2
 
     # extra_context = {'title': 'Главная'}
 
@@ -56,6 +57,7 @@ class NewsByCategory(MyMixin, ListView):
     template_name = 'news/home_news_list.html'
     context_object_name = 'news'
     allow_empty = False
+    paginate_by = 2
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
