@@ -5,16 +5,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 
 from .models import News, Category
-from .forms import NewsForm
+from .forms import NewsForm, UserRegisterForm
 from .utils import MyMixin
 
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm - форма переопределена в forms.py в UserRegisterForm
 from django.contrib import messages
 
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)   # используется подменная форма
         if form.is_valid():
             form.save()
             messages.success(request, 'Вы успешно зарегистрировались')
@@ -22,7 +22,7 @@ def register(request):
         else:
             messages.error(request, 'Ошибка регистрации')
     else:
-        form = UserCreationForm()
+        form = UserRegisterForm()   # используется подменная форма
     return render(request, 'news/register.html', {'form': form})
 
 
